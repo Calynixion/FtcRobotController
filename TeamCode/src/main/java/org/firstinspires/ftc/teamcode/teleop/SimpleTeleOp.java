@@ -29,9 +29,9 @@ public class SimpleTeleOp extends OpMode {
     @Override
     public void loop() {
         drivetrain.driveRobotCentric(
-                drivePad.getLeftX(),
-                drivePad.getLeftY(),
-                drivePad.getRightX()
+                -drivePad.getLeftX(),
+                -drivePad.getLeftY(),
+                -drivePad.getRightX()
         );
     }
 }
