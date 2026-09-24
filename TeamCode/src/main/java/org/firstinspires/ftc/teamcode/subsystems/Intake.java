@@ -6,6 +6,7 @@ import com.seattlesolvers.solverslib.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
    DcMotor intakeM;
+
     public Intake(HardwareMap hwMap){
         if (hwMap.dcMotor.contains("intakeM")) {
             intakeM = hwMap.get(DcMotor.class, "intakeM");

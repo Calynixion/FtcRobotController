@@ -11,9 +11,9 @@ public class Outtake extends SubsystemBase {
     public Outtake(HardwareMap outtakem){
         if (outtakem.dcMotor.contains("outtakem"))
         {
-        outtakeM = outtakem.get(DcMotor.class,"outtakem");
-        outtakeM.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        outtakeM.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            outtakeM = outtakem.get(DcMotor.class,"outtakem");
+            outtakeM.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            outtakeM.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
     }

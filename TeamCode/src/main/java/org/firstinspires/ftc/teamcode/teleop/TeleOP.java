@@ -8,15 +8,15 @@ import com.seattlesolvers.solverslib.hardware.motors.Motor;
 
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Outtake;
-
+import java.util.Scanner;
 @TeleOp
 public class TeleOP extends OpMode {
     private Motor fL, fR, bL, bR;
     private MecanumDrive drive;
     private GamepadEx driverOp;
-    Intake intakeAedric;
+    Intake intake;
+    Outtake outtake;
 
-    Outtake outtakeMark;
 
     @Override
     public void init() {
@@ -25,23 +25,26 @@ public class TeleOP extends OpMode {
         fR = new Motor(hardwareMap, "fR");
         bL = new Motor(hardwareMap, "bL");
         bR = new Motor(hardwareMap, "bR");
+        fL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        fR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        bL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        bR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+
         drive = new MecanumDrive(fL, fR, bL, bR);
         driverOp = new GamepadEx(gamepad1);
-        intakeAedric = new Intake(hardwareMap); // aris dont delete this i fixed it so it
-        outtakeMark = new Outtake(hardwareMap);   // wont throw an error if no hardware map
+        intake = new Intake(hardwareMap); // aris dont delete this i fixed it so it
+        outtake = new Outtake(hardwareMap);   // wont throw an error if no hardware map
     }
 
     @Override
     public void loop() {
 
         drive.driveRobotCentric(
-                -driverOp.getLeftX(),
-                -driverOp.getLeftY(),
-                -driverOp.getRightX()
+                -driverOp.getLeftX(),-driverOp.getLeftY(),-driverOp.getRightX()
         );
 
-        intakeAedric.intake(gamepad1.left_bumper);
-        outtakeMark.shoot(gamepad1.right_bumper);
+        intake.intake(gamepad1.left_bumper);
+        outtake.shoot(gamepad1.right_bumper);
     }
 }
 
