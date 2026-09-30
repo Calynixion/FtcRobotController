@@ -15,10 +15,14 @@ public class Intake extends SubsystemBase {
         }
     }
 
-    public void intake(boolean buttonIsPressed)
-    {
+    public void intake(boolean buttonIsPressed){
+
         if (buttonIsPressed) {
             intakeM.setPower(1);
+        } else {
+            intakeM.setPower(0);
         }
     }
+
+
 }
