@@ -21,10 +21,10 @@ public class TeleOP extends OpMode {
     @Override
     public void init() {
         /* instantiate motors */
-        fL = new Motor(hardwareMap, "fL");
-        fR = new Motor(hardwareMap, "fR");
-        bL = new Motor(hardwareMap, "bL");
-        bR = new Motor(hardwareMap, "bR");
+        fL = new Motor(hardwareMap, "frontLeft");
+        fR = new Motor(hardwareMap, "frontRight");
+        bL = new Motor(hardwareMap, "backLeft");
+        bR = new Motor(hardwareMap, "backRight");
         fL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         fR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         bL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
