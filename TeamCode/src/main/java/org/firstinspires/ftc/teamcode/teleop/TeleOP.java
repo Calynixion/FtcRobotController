@@ -42,7 +42,6 @@ public class TeleOP extends OpMode {
         drive.driveRobotCentric(
                 -driverOp.getLeftX(),-driverOp.getLeftY(),-driverOp.getRightX()
         );
-
         intake.intake(gamepad1.left_bumper);
         outtake.shoot(gamepad1.right_bumper);
     }
