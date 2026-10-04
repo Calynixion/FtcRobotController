@@ -19,7 +19,7 @@ public class ThreeWheelTuner extends Procedure {
 
     private static String leftEncoderName = "lf";
     private static String rightEncoderName = "rr";
-    private static String strafeEncoderName = "rf";
+    private static String strafeEncoderName = "lr";
 
     public ThreeWheelTuner() {
         super("Three Wheel Tuner", "Tune three odometry pods");

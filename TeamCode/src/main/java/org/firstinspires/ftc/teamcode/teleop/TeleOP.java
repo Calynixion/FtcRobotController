@@ -8,6 +8,8 @@ import com.seattlesolvers.solverslib.hardware.motors.Motor;
 
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Outtake;
+import org.firstinspires.ftc.teamcode.subsystems.aedricDrive;
+
 import java.util.Scanner;
 @TeleOp
 public class TeleOP extends OpMode {
@@ -16,7 +18,7 @@ public class TeleOP extends OpMode {
     private GamepadEx driverOp;
     Intake intake;
     Outtake outtake;
-
+    aedricDrive driveBetter;
 
     @Override
     public void init() {
@@ -35,26 +37,26 @@ public class TeleOP extends OpMode {
         fR.resetEncoder();
 
 
-        drive = new MecanumDrive(fL, fR, bL, bR);
+        //drive = new MecanumDrive(fL, fR, bL, bR);
         driverOp = new GamepadEx(gamepad1);
         intake = new Intake(hardwareMap); // aris dont delete this i fixed it so it
         outtake = new Outtake(hardwareMap);   // wont throw an error if no hardware map
+        driveBetter = new aedricDrive(hardwareMap, gamepad1);
     }
 
     @Override
     public void loop() {
 
-        drive.driveRobotCentric(
+        /*drive.driveRobotCentric(
                 -driverOp.getLeftX(),-driverOp.getLeftY(),-driverOp.getRightX()
-        );
+        );*/
         //intake.intake(gamepad1.left_bumper);
         //outtake.shoot(gamepad1.right_bumper);
         telemetry.addData("Left Odom: ",fL.getCurrentPosition());
         telemetry.addData("Right Odom: ",bR.getCurrentPosition());
-        telemetry.addData("Strafe Odom: ",fR.getCurrentPosition());
-
-
-
+        telemetry.addData("Strafe Odom: ",bL.getCurrentPosition());
+        driveBetter.drive(1);
+        intake.intake(gamepad1.left_bumper);
     }
 }
 

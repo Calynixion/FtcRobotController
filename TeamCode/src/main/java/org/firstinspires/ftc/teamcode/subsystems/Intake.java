@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
-public class Intake extends SubsystemBase {
+public class Intake {
    DcMotor intakeM;
 
     public Intake(HardwareMap hwMap){
@@ -16,11 +16,12 @@ public class Intake extends SubsystemBase {
     }
 
     public void intake(boolean buttonIsPressed){
-
-        if (buttonIsPressed) {
-            intakeM.setPower(1);
-        } else {
-            intakeM.setPower(0);
+        if (intakeM != null) {
+            if (buttonIsPressed) {
+                intakeM.setPower(1);
+            } else {
+                intakeM.setPower(0);
+            }
         }
     }
 
