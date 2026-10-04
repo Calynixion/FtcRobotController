@@ -21,14 +21,19 @@ public class TeleOP extends OpMode {
     @Override
     public void init() {
         /* instantiate motors */
-        fL = new Motor(hardwareMap, "frontLeft");
-        fR = new Motor(hardwareMap, "frontRight");
-        bL = new Motor(hardwareMap, "backLeft");
-        bR = new Motor(hardwareMap, "backRight");
+        fL = new Motor(hardwareMap, "lf");
+        fR = new Motor(hardwareMap, "rf");
+        bL = new Motor(hardwareMap, "lr");
+        bR = new Motor(hardwareMap, "rr");
         fL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         fR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         bL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         bR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+
+        fL.resetEncoder();
+        bR.resetEncoder();
+        fR.resetEncoder();
+
 
         drive = new MecanumDrive(fL, fR, bL, bR);
         driverOp = new GamepadEx(gamepad1);
@@ -42,8 +47,14 @@ public class TeleOP extends OpMode {
         drive.driveRobotCentric(
                 -driverOp.getLeftX(),-driverOp.getLeftY(),-driverOp.getRightX()
         );
-        intake.intake(gamepad1.left_bumper);
-        outtake.shoot(gamepad1.right_bumper);
+        //intake.intake(gamepad1.left_bumper);
+        //outtake.shoot(gamepad1.right_bumper);
+        telemetry.addData("Left Odom: ",fL.getCurrentPosition());
+        telemetry.addData("Right Odom: ",bR.getCurrentPosition());
+        telemetry.addData("Strafe Odom: ",fR.getCurrentPosition());
+
+
+
     }
 }
 

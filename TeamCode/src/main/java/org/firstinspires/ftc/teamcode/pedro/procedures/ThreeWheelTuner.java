@@ -17,9 +17,9 @@ import java.util.List;
 
 public class ThreeWheelTuner extends Procedure {
 
-    private static String leftEncoderName = "frontLeft";
-    private static String rightEncoderName = "backRight";
-    private static String strafeEncoderName = "frontRight";
+    private static String leftEncoderName = "lf";
+    private static String rightEncoderName = "rr";
+    private static String strafeEncoderName = "rf";
 
     public ThreeWheelTuner() {
         super("Three Wheel Tuner", "Tune three odometry pods");
