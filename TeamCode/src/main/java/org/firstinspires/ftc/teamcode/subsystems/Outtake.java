@@ -9,6 +9,7 @@ public class Outtake extends SubsystemBase {
     DcMotor outtakeM;
 
     public Outtake(HardwareMap outtakem){
+
         if (outtakem.dcMotor.contains("outtakem"))
         {
             outtakeM = outtakem.get(DcMotor.class,"outtakem");
