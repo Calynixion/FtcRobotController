@@ -44,42 +44,30 @@ public class TeleOP extends OpMode {
         bL.resetEncoder();
 
 
-<<<<<<< Updated upstream
         drive = new MecanumDrive(fL, fR, bL, bR);
         driverOp = new GamepadEx(gamepad1);
         intake = new Intake(hardwareMap); // aris dont delete this i fixed it so it
-        outtake = new Outtake(hardwareMap);   // wont throw an error if no hardware map
-=======
+        //outtake = new Outtake(hardwareMap);   // wont throw an error if no hardware map
 
-        drive = new MecanumDrive(fL, fR, bL, bR);
-        intake = new Intake(hardwareMap);
-        driverOp = new GamepadEx(gamepad1);
         //intake = new Intake(hardwareMap); // aris dont delete this i fixed it so it
         //outtake = new Outtake(hardwareMap);   // wont throw an error if no hardware map
         //driveBetter = new aedricDrive(hardwareMap, gamepad1);
->>>>>>> Stashed changes
     }
 
     @Override
     public void loop() {
 
         drive.driveRobotCentric(
-<<<<<<< Updated upstream
-                -driverOp.getLeftX(),-driverOp.getLeftY(),-driverOp.getRightX()
-=======
                 -driverOp.getLeftX(),-driverOp.getLeftY(),-driverOp.getRightX(),false
->>>>>>> Stashed changes
         );
         //intake.intake(gamepad1.left_bumper);
         //outtake.shoot(gamepad1.right_bumper);
         telemetry.addData("Left Odom: ",fL.getCurrentPosition());
         telemetry.addData("Right Odom: ",bR.getCurrentPosition());
-<<<<<<< Updated upstream
         telemetry.addData("Strafe Odom: ",fR.getCurrentPosition());
 
 
 
-=======
         telemetry.addData("Strafe Odom: ",bL.getCurrentPosition());
 
         if (driverOp.getButton(GamepadKeys.Button.A)){
@@ -89,7 +77,6 @@ public class TeleOP extends OpMode {
         }
         //driveBetter.drive(1);
         //intake.intake(gamepad1.left_bumper);
->>>>>>> Stashed changes
     }
 }
 
