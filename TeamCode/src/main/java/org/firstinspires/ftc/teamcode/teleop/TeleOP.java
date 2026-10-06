@@ -65,10 +65,6 @@ public class TeleOP extends OpMode {
         //outtake.shoot(gamepad1.right_bumper);
         telemetry.addData("Left Odom: ",fL.getCurrentPosition());
         telemetry.addData("Right Odom: ",bR.getCurrentPosition());
-        telemetry.addData("Strafe Odom: ",fR.getCurrentPosition());
-
-
-
         telemetry.addData("Strafe Odom: ",bL.getCurrentPosition());
 
         if (driverOp.getButton(GamepadKeys.Button.A)){
