@@ -21,6 +21,7 @@ public class TeleOP extends OpMode {
     private GamepadEx driverOp;
     Intake intake;
     Outtake outtake;
+    private RevIMU imu;
 
 
     @Override
@@ -35,7 +36,7 @@ public class TeleOP extends OpMode {
         bL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         bR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
-        RevIMU imu = new RevIMU(hardwareMap);
+        imu = new RevIMU(hardwareMap);
         imu.init();
 
 
