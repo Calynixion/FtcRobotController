@@ -50,4 +50,8 @@ public class TestAuto extends OpMode {
         telemetry.addData("Follower Mode", follower.mode());
         telemetry.update();
     }
+    @Override
+    public void stop(){
+        Scheduler.cancel(follow(follower, park()));
+    }
 }
