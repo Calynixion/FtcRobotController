@@ -3,27 +3,20 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
+import com.seattlesolvers.solverslib.hardware.motors.Motor;
 
 public class Outtake extends SubsystemBase {
 
-    DcMotor outtakeM;
+    Motor outtake;
 
-    public Outtake(HardwareMap outtakem){
+    public Outtake(HardwareMap hwMap){
+        outtake = new Motor(hwMap,"outtakeM");
+        outtake.setZeroPowerBehavior(Motor.ZeroPowerBehavior.FLOAT);
 
-        if (outtakem.dcMotor.contains("outtakem"))
-        {
-            outtakeM = outtakem.get(DcMotor.class,"outtakem");
-            outtakeM.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            outtakeM.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        }
 
     }
-    public void shoot(boolean whatever){
-        if (outtakeM != null) {
-            if (whatever) {
-                outtakeM.setPower(1);
-            }
-        }
+    public void shoot(int power){
+        outtake.set(power);
     }
 
 }

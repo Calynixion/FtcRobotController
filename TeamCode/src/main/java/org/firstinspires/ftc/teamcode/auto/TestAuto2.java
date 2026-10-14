@@ -32,6 +32,8 @@ public class TestAuto2 extends LinearOpMode {
     public Command autoRoutine() {
         return sequential(
                 follow(follower, path1())
+
+
         );
     }
 
