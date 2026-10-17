@@ -39,12 +39,11 @@ public class RedFirst extends OpMode {
     private Command shoot() {
         return sequential(
             startShooter,
-            pause,
+            waitMs(4000),
             stopShooter
         );
     }
-    private Command pause = waitMs(4000);
-    private Command startShooter = Command.build()
+        private Command startShooter = Command.build()
             .setStart(()->shooter.shoot(1))
             .setExecute(()->shooter.shoot(1)
     );
