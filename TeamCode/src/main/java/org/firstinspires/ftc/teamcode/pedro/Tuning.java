@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.pedro.procedures.ForesightTuner;
 import org.firstinspires.ftc.teamcode.pedro.procedures.MecanumTuner;
+import org.firstinspires.ftc.teamcode.pedro.procedures.PinpointTuner;
 import org.firstinspires.ftc.teamcode.pedro.procedures.Tests;
 import org.firstinspires.ftc.teamcode.pedro.procedures.ThreeWheelIMUTuner;
 import org.firstinspires.ftc.teamcode.pedro.procedures.ThreeWheelTuner;
@@ -25,11 +26,16 @@ public class Tuning {
         return new MecanumTuner();
     }
     @Tuner
+    public static Procedure pinpointTuner() {
+        return new PinpointTuner();
+    }
+    @Tuner
     public static Procedure tests() {
         return new Tests(hardwareMap -> new Mecanum(hardwareMap, Constants.drivetrainConfig),
-                (hardwareMap -> new ThreeWheelIMULocalizer(hardwareMap, localizerConfig)),
-                () -> new Foresight(Constants.foresightConfig));
+                null,null);
     }
+//    (hardwareMap -> new ThreeWheelIMULocalizer(hardwareMap, localizerConfig)),
+//            () -> new Foresight(Constants.foresightConfig)
     @Tuner
     public static Procedure threeWheelIMUTuner() {
         return new ThreeWheelIMUTuner();
