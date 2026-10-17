@@ -1,0 +1,11 @@
+This is the hardware mapping for the new robot configuration:
+
+Control Hub:
+    0:lf (front left motor)
+    1:lr (rear left motor)
+    2:intakeM (intake)
+    3:outtakeM (shooter)
+Expansion Hub
+    0:rf (front right motor)
+    1:rr (rear right motor)
+
