@@ -17,9 +17,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
-
+@Autonomous(name = "AutoPath", group = "Autonomous")
 public class BlueFirst {
-    @Autonomous(name = "AutoPath", group = "Autonomous")
+
     public class AutoPath extends LinearOpMode {
 
         private Follower follower;

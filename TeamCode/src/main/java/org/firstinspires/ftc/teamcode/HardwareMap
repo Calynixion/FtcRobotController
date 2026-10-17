@@ -5,7 +5,8 @@ Control Hub:
     1:lr (rear left motor)
     2:intakeM (intake)
     3:outtakeM (shooter)
-Expansion Hub
+    I2C1: pinpoint (pinpoint odometry)
+Expansion Hub:
     0:rf (front right motor)
     1:rr (rear right motor)
 

@@ -1,0 +1,8 @@
+This is the controller mapping for the robot
+
+Gampad 1(driver):
+    button A: activates intake
+    L joystick y axis: moves the robot forward/backward
+    L joystick x axis: turns the robot left/right
+    R joystick x axis: strafes left/right
+
