@@ -32,7 +32,7 @@ public class Tuning {
     @Tuner
     public static Procedure tests() {
         return new Tests(hardwareMap -> new Mecanum(hardwareMap, Constants.drivetrainConfig),
-                null,null);
+                (hardwareMap -> new PinpointLocalizer(hardwareMap, localizerConfig)),null);
     }
 //    (hardwareMap -> new ThreeWheelIMULocalizer(hardwareMap, localizerConfig)),
 //            () -> new Foresight(Constants.foresightConfig)
@@ -40,9 +40,9 @@ public class Tuning {
     public static Procedure threeWheelIMUTuner() {
         return new ThreeWheelIMUTuner();
     }
-    @Tuner
-    public static Procedure foresightTuner() {
-        return new ForesightTuner((hardwareMap) -> new ThreeWheelIMULocalizer(hardwareMap, localizerConfig), (hardwareMap) -> new Mecanum(hardwareMap, Constants.drivetrainConfig));
-    }
+//    @Tuner
+//    public static Procedure foresightTuner() {
+//        return new ForesightTuner((hardwareMap) -> new ThreeWheelIMULocalizer(hardwareMap, localizerConfig), (hardwareMap) -> new Mecanum(hardwareMap, Constants.drivetrainConfig));
+//    }
 }
 
