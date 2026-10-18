@@ -1,12 +1,16 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.seattlesolvers.solverslib.command.SubsystemBase;
-import com.seattlesolvers.solverslib.drivebase.MecanumDrive;
-import com.seattlesolvers.solverslib.hardware.RevIMU;
-import com.seattlesolvers.solverslib.hardware.motors.Motor;
+import static com.pedropathing.ivy.commands.Commands.infinite;
 
-public class drivetrain extends SubsystemBase {
+import com.pedropathing.follower.Follower;
+import com.pedropathing.ivy.Command;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.pedro.Constants;
+import org.firstinspires.ftc.teamcode.robotCore.robot;
+
+public class drivetrain {
     /*
     instantiate 4 motors
 
@@ -16,34 +20,35 @@ public class drivetrain extends SubsystemBase {
 
     create driveRobotCentric method
      */
-    private Motor fL, fR, bL, bR;
-    private MecanumDrive drive;
+    public final DcMotorEx fL, fR, bL, bR;
+    public final Follower follower;
+    private final Telemetry telemetry;
 
-    private RevIMU imu;
 
-    public drivetrain(HardwareMap hwMap) {
-        fL = new Motor(hwMap, "lf");
-        fR = new Motor(hwMap, "rf");
-        bL = new Motor(hwMap, "lr");
-        bR = new Motor(hwMap, "rr");
-        fL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        fR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        bL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        bR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        fL.resetEncoder();
-        bR.resetEncoder();
-        bL.resetEncoder();
-        fR.resetEncoder();
+    public drivetrain(robot robot) {
+        follower = Constants.create(robot.hardwareMap);
+        fL = robot.hardwareMap.get(DcMotorEx.class, "lf");
+        fR = robot.hardwareMap.get(DcMotorEx.class, "rf");
+        bL = robot.hardwareMap.get(DcMotorEx.class, "lr");
+        bR = robot.hardwareMap.get(DcMotorEx.class, "rr");
 
-        drive = new MecanumDrive(fL, fR, bL, bR);
+        fL.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        fR.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        bL.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        bR.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
-        imu = new RevIMU(hwMap);
-        imu.init();
-
+        telemetry = robot.telemetry;
     }
 
     public void drive(double strafe,double forward,double turn){
-        drive.driveRobotCentric(strafe,forward,turn);
+        follower.manual(strafe,forward,turn);
+    }
+
+    public Command periodic() {
+        return infinite(()->{
+                follower.update();
+            }
+        );
     }
 
 }
