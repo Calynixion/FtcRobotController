@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.robotCore.robot;
 
 
@@ -22,18 +23,18 @@ public class Intake {
 
     public Intake(robot robot){
         intakeM = robot.hardwareMap.get(DcMotorEx.class,"intakeM");
-        intakeM.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+        intakeM.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         telemetry = robot.telemetry;
     }
 
     public Command on() {
-        return instant(()->mode = Mode.ON).requiring(intakeM);
+        return instant(()->mode = Mode.ON);
     }
     public Command off() {
-        return instant(()->mode = Mode.OFF).requiring(intakeM);
+        return instant(()->mode = Mode.OFF);
     }
     public Command reverse() {
-        return instant(()->mode = Mode.REVERSE).requiring(intakeM);
+        return instant(()->mode = Mode.REVERSE);
     }
 
     public Command periodic (){
@@ -49,6 +50,8 @@ public class Intake {
                     intakeM.setPower(-power);
                     break;
             }
+            telemetry.addData("Intake Mode: ",mode);
+            telemetry.addData("Intake Power: ",intakeM.getCurrent(CurrentUnit.AMPS));
         });
     }
 

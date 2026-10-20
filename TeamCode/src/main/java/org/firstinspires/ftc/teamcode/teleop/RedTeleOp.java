@@ -22,14 +22,14 @@ public class RedTeleOp extends robotOpMode {
 
         robot.drivetrain.drive(
                 -gamepad1.left_stick_y,
-                gamepad1.left_stick_x,
-                gamepad1.right_stick_x
+                -gamepad1.left_stick_x,
+                -gamepad1.right_stick_x
         );
 
         if (gamepad1.bWasPressed()) robot.outtake.toggle();
-        if (gamepad1.leftBumperWasPressed()) robot.intake.on();
-        if (gamepad1.rightBumperWasPressed()) robot.intake.reverse();
-        if (gamepad1.aWasPressed()) robot.intake.off();
+        if (gamepad1.leftBumperWasPressed()) robot.intake.on().schedule();
+        if (gamepad1.rightBumperWasPressed()) robot.intake.reverse().schedule();
+        if (gamepad1.aWasPressed()) robot.intake.off().schedule();
 
         super.loop();
     }

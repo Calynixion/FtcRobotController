@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
-
-public class RobotAuto extends RobotOpMode{
-}
+//package org.firstinspires.ftc.teamcode.auto;
+//
+//public class RobotAuto extends RobotOpMode{
+//}

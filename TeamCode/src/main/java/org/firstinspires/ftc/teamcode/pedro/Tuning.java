@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.pedro;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static org.firstinspires.ftc.teamcode.pedro.Constants.foresightConfig;
 import static org.firstinspires.ftc.teamcode.pedro.Constants.localizerConfig;
 
+import com.pedropathing.algorithm.Algorithm;
 import com.pedropathing.algorithm.Foresight;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.revhub.drivetrains.Mecanum;
@@ -19,6 +21,8 @@ import org.firstinspires.ftc.teamcode.pedro.procedures.Tests;
 import org.firstinspires.ftc.teamcode.pedro.procedures.ThreeWheelIMUTuner;
 import org.firstinspires.ftc.teamcode.pedro.procedures.ThreeWheelTuner;
 
+import java.util.function.Supplier;
+
 public class Tuning {
     // Tuners go here
     @Tuner
@@ -32,7 +36,8 @@ public class Tuning {
     @Tuner
     public static Procedure tests() {
         return new Tests(hardwareMap -> new Mecanum(hardwareMap, Constants.drivetrainConfig),
-                (hardwareMap -> new PinpointLocalizer(hardwareMap, localizerConfig)),null);
+                (hardwareMap -> new PinpointLocalizer(hardwareMap, localizerConfig)),
+                () -> new Foresight(Constants.foresightConfig));
     }
 //    (hardwareMap -> new ThreeWheelIMULocalizer(hardwareMap, localizerConfig)),
 //            () -> new Foresight(Constants.foresightConfig)
@@ -40,9 +45,9 @@ public class Tuning {
     public static Procedure threeWheelIMUTuner() {
         return new ThreeWheelIMUTuner();
     }
-//    @Tuner
-//    public static Procedure foresightTuner() {
-//        return new ForesightTuner((hardwareMap) -> new ThreeWheelIMULocalizer(hardwareMap, localizerConfig), (hardwareMap) -> new Mecanum(hardwareMap, Constants.drivetrainConfig));
-//    }
+    @Tuner
+    public static Procedure foresightTuner() {
+        return new ForesightTuner((hardwareMap) -> new PinpointLocalizer(hardwareMap, localizerConfig), (hardwareMap) -> new Mecanum(hardwareMap, Constants.drivetrainConfig));
+    }
 }
 

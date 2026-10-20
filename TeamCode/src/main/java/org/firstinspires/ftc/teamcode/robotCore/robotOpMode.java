@@ -4,7 +4,6 @@ import static com.pedropathing.ivy.Scheduler.schedule;
 
 import com.pedropathing.ivy.Scheduler;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.robot.Robot;
 
 public class robotOpMode extends OpMode {
     protected robot robot;

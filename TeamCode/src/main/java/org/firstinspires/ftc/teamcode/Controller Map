@@ -1,6 +1,6 @@
 This is the controller mapping for the robot
 
-Gampad 1(driver):
+Gamepad 1(driver):
     button A: stops intake
     l shoulder: intake on
     r shoulder: intake reverse
