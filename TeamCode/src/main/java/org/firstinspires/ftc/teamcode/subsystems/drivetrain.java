@@ -4,7 +4,6 @@ import static com.pedropathing.ivy.commands.Commands.infinite;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.ivy.Command;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
@@ -48,6 +47,7 @@ public class drivetrain {
     public Command periodic() {
         return infinite(()->{
                 follower.update();
+                //replace below with odom
                 telemetry.addData("FL Motor Speed: ", fL.getVelocity());
                 telemetry.addData("FR Motor Speed: ", fR.getVelocity());
                 telemetry.addData("BL Motor Speed: ", bL.getVelocity());
