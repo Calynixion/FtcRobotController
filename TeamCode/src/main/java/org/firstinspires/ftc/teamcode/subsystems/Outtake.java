@@ -1,30 +1,46 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import static com.pedropathing.ivy.commands.Commands.infinite;
+
+import com.bylazar.configurables.annotations.Configurable;
+import com.pedropathing.controllers.Controller;
+import com.pedropathing.controllers.PIDController;
 import com.pedropathing.ivy.Command;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.PIDCoefficients;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.robotCore.robot;
-
+@Configurable
 public class Outtake {
     //Implement pidf here later, for now will be manual power
     private final DcMotorEx outtakeM;
     private final Telemetry telemetry;
 
-    private final ColorSensor sensor;
+    private ColorSensor sensor=null;
     private double targetPower = 0.8;
 
     public color nextBallColor = color.NULL;
 
-    private double targetSpeed = 1;
-    private double bigBallPower = 0.75;
 
-    private double smallBallPower = 0.5;
+    //speed will be in ticks/sec
+    //max is 2800 ticks/sec
+    private double targetSpeed = 2800*0.8;
+    private double bigBallSpeed = 2800*0.8;
 
+    private double smallBallSpeed = 2800*0.5;
+
+    public static double kP = 0.02;
+    public static double kI = 0.01;
+    public static double kD = 0.001;
+    private Controller flywheelController = Controller.pid(kP,kI,kD);
+
+
+    //accepted error in percent
     private double acceptedError = 0.1;
     private boolean on = false;
 
@@ -38,6 +54,9 @@ public class Outtake {
 
     public void setTargetPower(double power){
        targetPower = power;
+    }
+    public void setTargetSpeed(double speed){
+        targetSpeed = speed;
     }
 
     public void On(){
@@ -71,33 +90,45 @@ public class Outtake {
 
     public Command periodic() {
         return infinite(()->{
+
             calculateColor(sensor.red(), sensor.green(), sensor.blue(), sensor.alpha());
             switch (nextBallColor) {
                 case RED:
                 case BLUE:
-                    setTargetPower(bigBallPower);
+                    setTargetSpeed(bigBallSpeed);
                     break;
                 case YELLOW:
-                    setTargetPower(smallBallPower);
+                    setTargetSpeed(smallBallSpeed);
                     break;
                 case NULL:
-                    setTargetPower(0.8);
+                    setTargetPower(2240);
                     break;
             }
+
+
             if (on) {
                 //replace with pid
-                outtakeM.setPower(targetPower);
+                flywheelController = Controller.pid(kP,kI,kD);
+                
+                outtakeM.setPower(flywheelController.calculate(targetSpeed,targetSpeed-outtakeM.getVelocity()));
+
+                //outtakeM.setPower(flywheelController.calculate(targetSpeed,targetSpeed-outtakeM.getVelocity()));
             } else {
                 outtakeM.setPower(0);
             }
-            telemetry.addData("Target Power: ",targetPower);
-            telemetry.addData("Shooter Speed: ",outtakeM.getVelocity());
-            telemetry.addData("Shooter Voltage: ",outtakeM.getCurrent(CurrentUnit.AMPS));
-            telemetry.addData("Color Sensor Alpha: ",sensor.alpha());
-            telemetry.addData("Color Sensor Red: ",sensor.red());
-            telemetry.addData("Color Sensor Green: ",sensor.green());
-            telemetry.addData("Color Sensor Blue: ",sensor.blue());   
-            telemetry.addData("Next Ball Color: ",nextBallColor);
+            telemetry.addData("Outtake State",on?"On":"Off");
+            telemetry.addData("Target Speed",targetSpeed);
+            telemetry.addData("Current Speed",outtakeM.getVelocity());
+            telemetry.addData("Current Power",outtakeM.getPower());
+            telemetry.addData("Shooter Voltage",outtakeM.getCurrent(CurrentUnit.AMPS));
+
+            telemetry.addData("Color Sensor Alpha",sensor.alpha());
+            telemetry.addData("Color Sensor Red",sensor.red());
+            telemetry.addData("Color Sensor Green",sensor.green());
+            telemetry.addData("Color Sensor Blue",sensor.blue());
+            telemetry.addData("Next Ball Color",nextBallColor);
+
+
 
         });
     }
