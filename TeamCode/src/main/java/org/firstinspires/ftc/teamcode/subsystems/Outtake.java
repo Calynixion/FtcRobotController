@@ -34,14 +34,14 @@ public class Outtake {
 
     private double smallBallSpeed = 2800*0.5;
 
-    public static double kP = 0.02;
+    public static double kP = 0.01;
     public static double kI = 0.01;
-    public static double kD = 0.001;
+    public static double kD = 0.02;
     private Controller flywheelController = Controller.pid(kP,kI,kD);
 
 
     //accepted error in percent
-    private double acceptedError = 0.1;
+    private double tolerance = 150;
     private boolean on = false;
 
     public Outtake(robot robot){
@@ -57,6 +57,12 @@ public class Outtake {
     }
     public void setTargetSpeed(double speed){
         targetSpeed = speed;
+    }
+    public double getVelocity() {
+        return outtakeM.getVelocity();
+    }
+    public boolean atTarget() {
+        return Math.abs(targetSpeed-getVelocity()) <= tolerance;
     }
 
     public void On(){
@@ -109,8 +115,8 @@ public class Outtake {
             if (on) {
                 //replace with pid
                 flywheelController = Controller.pid(kP,kI,kD);
-                
-                outtakeM.setPower(flywheelController.calculate(targetSpeed,targetSpeed-outtakeM.getVelocity()));
+
+                outtakeM.setPower(flywheelController.calculate(targetSpeed,targetSpeed-getVelocity()));
 
                 //outtakeM.setPower(flywheelController.calculate(targetSpeed,targetSpeed-outtakeM.getVelocity()));
             } else {
@@ -118,8 +124,8 @@ public class Outtake {
             }
             telemetry.addData("Outtake State",on?"On":"Off");
             telemetry.addData("Target Speed",targetSpeed);
-            telemetry.addData("Current Speed",outtakeM.getVelocity());
-            telemetry.addData("Current Power",outtakeM.getPower());
+            telemetry.addData("Current Speed",getVelocity());
+            telemetry.addData("At Target",atTarget());
             telemetry.addData("Shooter Voltage",outtakeM.getCurrent(CurrentUnit.AMPS));
 
             telemetry.addData("Color Sensor Alpha",sensor.alpha());
@@ -132,6 +138,7 @@ public class Outtake {
 
         });
     }
+
 
     public enum color{
         RED,

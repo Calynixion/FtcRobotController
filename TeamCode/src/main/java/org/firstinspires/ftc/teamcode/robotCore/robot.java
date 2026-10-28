@@ -15,15 +15,15 @@ import org.firstinspires.ftc.teamcode.subsystems.drivetrain;
 public class robot {
     public final HardwareMap hardwareMap;
     public final JoinedTelemetry telemetry;
-    public final drivetrain drivetrain=null;
-    public final Intake intake=null;
+    public final drivetrain drivetrain;
+    public final Intake intake;
     public final Outtake outtake;
 
     public robot(OpMode opMode){
         hardwareMap = opMode.hardwareMap;
         telemetry = new JoinedTelemetry(PanelsTelemetry.INSTANCE.getFtcTelemetry(),opMode.telemetry);
-        //drivetrain = new drivetrain(this);
-        //intake = new Intake(this);
+        drivetrain = new drivetrain(this);
+        intake = new Intake(this);
         outtake = new Outtake(this);
     }
 }

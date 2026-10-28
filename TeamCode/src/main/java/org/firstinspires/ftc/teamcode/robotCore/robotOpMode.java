@@ -14,8 +14,8 @@ public class robotOpMode extends OpMode {
         robot = new robot(this);
 
         schedule(
-            //robot.drivetrain.periodic(),
-            //robot.intake.periodic(),
+            robot.drivetrain.periodic(),
+            robot.intake.periodic(),
             robot.outtake.periodic()
         );
     }
