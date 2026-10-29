@@ -10,4 +10,5 @@ Control Hub:
 Expansion Hub:
     0:rf (front right motor)
     1:rr (rear right motor)
+    2:transferM (transfer motor)
 

@@ -14,16 +14,16 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.robotCore.robotOpMode;
 
-@Autonomous
+@Autonomous(name = "Blue Close",group = "Blue Autos")
 public class BlueClose extends robotOpMode {
     private AutoPaths paths;
+    private static final PoseFactory poseFactory = PoseFactory.degrees();
 
     @Override
     public void init(){
         super.init();
         paths = new AutoPaths();
-        //set starting pose using setPose of drivetrain
-        //init paths object
+        robot.drivetrain.setPose(poseFactory.of(88.9643,133.3427,270));
     }
 
 
@@ -31,32 +31,19 @@ public class BlueClose extends robotOpMode {
     public void start(){
         schedule (
               sequential(
-                 shoot(),
+                 robotOpMode.shoot(),
                  robot.drivetrain.followPath(paths.path1())
               )
         );
     }
 
-    private Command shoot() {
-        return sequential(
-           instant(robot.outtake::On),
-           waitUntil(robot.outtake::atTarget),
-           waitMs(50),
-           //put transfer here
-           waitMs(4000),
-            //stop transfer here
-           instant(robot.outtake::Off)
-
-        );
-    }
-
     private static class AutoPaths {
         //paths from visualizer go here
-        private final PoseFactory poseFactory = PoseFactory.degrees();
-
-
         public Path path1(){
-            return Paths.line(poseFactory.of(88.9643,133.3427,90),poseFactory.of(131.5285,48.6723,270)).constant(270);
+            return Paths.line(
+                poseFactory.of(88.9643,133.3427,270),
+                poseFactory.of(131.5285,48.6723,270)
+            ).constant(270);
         };
     }
 

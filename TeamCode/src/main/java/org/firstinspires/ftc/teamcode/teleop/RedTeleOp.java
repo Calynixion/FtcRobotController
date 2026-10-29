@@ -30,6 +30,10 @@ public class RedTeleOp extends robotOpMode {
         if (gamepad1.leftBumperWasPressed()) robot.intake.on().schedule();
         if (gamepad1.rightBumperWasPressed()) robot.intake.reverse().schedule();
         if (gamepad1.aWasPressed()) robot.intake.off().schedule();
+        if (gamepad1.leftTriggerWasPressed()) robot.transfer.on().schedule();
+        if (gamepad1.rightTriggerWasPressed()) robot.transfer.reverse().schedule();
+        if (gamepad1.xWasPressed()) robot.transfer.off().schedule();
+
 
         super.loop();
     }

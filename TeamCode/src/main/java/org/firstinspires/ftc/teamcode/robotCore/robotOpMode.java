@@ -1,13 +1,17 @@
 package org.firstinspires.ftc.teamcode.robotCore;
 
 import static com.pedropathing.ivy.Scheduler.schedule;
+import static com.pedropathing.ivy.commands.Commands.instant;
+import static com.pedropathing.ivy.commands.Commands.waitMs;
+import static com.pedropathing.ivy.commands.Commands.waitUntil;
+import static com.pedropathing.ivy.groups.Groups.sequential;
 
+import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 public class robotOpMode extends OpMode {
-    protected robot robot;
-
+    protected static robot robot;
     @Override
     public void init() {
         Scheduler.reset();
@@ -16,7 +20,8 @@ public class robotOpMode extends OpMode {
         schedule(
             robot.drivetrain.periodic(),
             robot.intake.periodic(),
-            robot.outtake.periodic()
+            robot.outtake.periodic(),
+            robot.transfer.periodic()
         );
     }
 
@@ -29,5 +34,18 @@ public class robotOpMode extends OpMode {
     public void loop() {
         Scheduler.execute();
         robot.telemetry.update();
+    }
+
+    public static Command shoot() {
+        return sequential(
+                instant(robot.outtake::On),
+                waitUntil(robot.outtake::atTarget),
+                waitMs(50),
+                instant(robot.transfer::on),
+                waitMs(4000),
+                instant(robot.transfer::off),
+                instant(robot.outtake::Off)
+
+        );
     }
 }

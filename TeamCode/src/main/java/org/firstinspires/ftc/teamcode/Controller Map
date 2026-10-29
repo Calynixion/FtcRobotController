@@ -8,4 +8,6 @@ Gamepad 1(driver):
     L joystick y axis: moves the robot forward/backward
     L joystick x axis: turns the robot left/right
     R joystick x axis: strafes left/right
-
+    L trigger: transfer on
+    R trigger: transfer reverse
+    button X: transfer off
