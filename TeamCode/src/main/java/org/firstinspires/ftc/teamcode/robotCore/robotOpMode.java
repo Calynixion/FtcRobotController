@@ -39,13 +39,12 @@ public class robotOpMode extends OpMode {
     public static Command shoot() {
         return sequential(
                 instant(robot.outtake::On),
-                waitUntil(robot.outtake::atTarget),
+                //waitUntil(robot.outtake::atTarget),
                 waitMs(50),
                 instant(robot.transfer::on),
                 waitMs(4000),
                 instant(robot.transfer::off),
                 instant(robot.outtake::Off)
-
         );
     }
 }
