@@ -31,6 +31,8 @@ public class launchPower extends robotOpMode {
 
         robot.outtake.setTargetPower(power);
         if (gamepad1.bWasPressed()) robot.outtake.toggle();
+        if (gamepad1.aWasPressed()) robot.outtake.toggleMode();
+
 
         super.loop();
     }

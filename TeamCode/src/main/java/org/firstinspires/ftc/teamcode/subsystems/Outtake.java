@@ -22,9 +22,11 @@ public class Outtake {
     private final Telemetry telemetry;
 
     private ColorSensor sensor=null;
-    private double targetPower = 0.8;
+    private double targetPower = 1;
 
     public color nextBallColor = color.NULL;
+
+    public boolean manualPower = false;
 
 
     //speed will be in ticks/sec
@@ -34,9 +36,13 @@ public class Outtake {
 
     private double smallBallSpeed = 2800*0.5;
 
+//    public static double kP = 0.01;
+//    public static double kI = 0.01;
+//    public static double kD = 0.02;
     public static double kP = 0.01;
     public static double kI = 0.01;
     public static double kD = 0.02;
+
     private Controller flywheelController = Controller.pid(kP,kI,kD);
 
 
@@ -77,6 +83,9 @@ public class Outtake {
         if (on) On();
         else Off();
     }
+    public void toggleMode(){
+        manualPower = !manualPower;
+    }
 
     private void calculateColor(int r,int g,int b, int a){
         if (a>100) {
@@ -107,7 +116,7 @@ public class Outtake {
                     setTargetSpeed(smallBallSpeed);
                     break;
                 case NULL:
-                    setTargetPower(2240);
+                    setTargetSpeed(1800);
                     break;
             }
 
@@ -115,23 +124,27 @@ public class Outtake {
             if (on) {
                 //replace with pid
                 flywheelController = Controller.pid(kP,kI,kD);
+                if (!(manualPower)){
+                    outtakeM.setPower(flywheelController.calculate(targetSpeed,targetSpeed-getVelocity()));
+                } else {
+                    outtakeM.setPower(targetPower);
+                }
 
-                outtakeM.setPower(flywheelController.calculate(targetSpeed,targetSpeed-getVelocity()));
-
-                //outtakeM.setPower(flywheelController.calculate(targetSpeed,targetSpeed-outtakeM.getVelocity()));
             } else {
                 outtakeM.setPower(0);
             }
             telemetry.addData("Outtake State",on?"On":"Off");
+            telemetry.addData("Manual Power",manualPower);
+            telemetry.addData("Target Power",targetPower);
             telemetry.addData("Target Speed",targetSpeed);
             telemetry.addData("Current Speed",getVelocity());
             telemetry.addData("At Target",atTarget());
-            telemetry.addData("Shooter Voltage",outtakeM.getCurrent(CurrentUnit.AMPS));
+           // telemetry.addData("Shooter Voltage",outtakeM.getCurrent(CurrentUnit.AMPS));
 
-            telemetry.addData("Color Sensor Alpha",sensor.alpha());
-            telemetry.addData("Color Sensor Red",sensor.red());
-            telemetry.addData("Color Sensor Green",sensor.green());
-            telemetry.addData("Color Sensor Blue",sensor.blue());
+            //telemetry.addData("Color Sensor Alpha",sensor.alpha());
+            //telemetry.addData("Color Sensor Red",sensor.red());
+            //telemetry.addData("Color Sensor Green",sensor.green());
+            //telemetry.addData("Color Sensor Blue",sensor.blue());
             telemetry.addData("Next Ball Color",nextBallColor);
 
 
