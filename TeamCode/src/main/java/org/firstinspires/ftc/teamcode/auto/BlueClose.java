@@ -23,7 +23,7 @@ public class BlueClose extends robotOpMode {
     public void init(){
         super.init();
         paths = new AutoPaths();
-        robot.drivetrain.setPose(poseFactory.of(88.9643,133.3427,270));
+        robot.drivetrain.setPose(poseFactory.of( 88.9643,133.3427,270));
     }
 
 
