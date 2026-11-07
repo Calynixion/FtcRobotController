@@ -50,8 +50,8 @@ public class Intake {
                     intakeM.setPower(-power);
                     break;
             }
-            telemetry.addData("Intake Mode: ",mode);
-            telemetry.addData("Intake Power: ",intakeM.getCurrent(CurrentUnit.AMPS));
+            telemetry.addData("Intake Mode",mode);
+            //telemetry.addData("Intake Power",intakeM.getCurrent(CurrentUnit.AMPS));
         });
     }
 

@@ -7,6 +7,7 @@ Control Hub:
     3:outtakeM (shooter)
     I2C1: pinpoint (pinpoint odometry)
     I2C2: colorSensor (outtake color sensor)
+    Servo Port 5: light (pwm lights)
 Expansion Hub:
     0:rf (front right motor)
     1:rr (rear right motor)

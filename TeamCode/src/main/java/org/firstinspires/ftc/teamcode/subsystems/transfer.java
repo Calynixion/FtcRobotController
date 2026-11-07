@@ -7,6 +7,7 @@ import static com.pedropathing.ivy.commands.Commands.instant;
 import com.pedropathing.ivy.Command;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
@@ -27,6 +28,7 @@ public class transfer{
         transferM = robot.hardwareMap.get(DcMotorEx.class, "transferM");
         telemetry = robot.telemetry;
         transferM.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        transferM.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
     }
@@ -50,8 +52,8 @@ public class transfer{
                     transferM.setPower(-power);
                     break;
             }
-            telemetry.addData("transfer Mode: ",mode);
-            telemetry.addData("transfer Power: ",transferM.getCurrent(CurrentUnit.AMPS));
+            telemetry.addData("Transfer Mode",mode);
+            //telemetry.addData("transfer Power: ",transferM.getCurrent(CurrentUnit.AMPS));
         });
     }
 

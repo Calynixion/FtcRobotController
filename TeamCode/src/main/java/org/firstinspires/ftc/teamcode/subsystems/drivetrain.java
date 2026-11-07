@@ -63,9 +63,9 @@ public class drivetrain {
                 telemetry.addData("FR Motor Speed: ", fR.getVelocity());
                 telemetry.addData("BL Motor Speed: ", bL.getVelocity());
                 telemetry.addData("BR Motor Speed: ", bR.getVelocity());
-                telemetry.addData("Total Drivetrain Power Consumption: ",
-                        fL.getCurrent(CurrentUnit.AMPS)+fR.getCurrent(CurrentUnit.AMPS)+
-                                bL.getCurrent(CurrentUnit.AMPS)+bR.getCurrent(CurrentUnit.AMPS));
+//                telemetry.addData("Total Drivetrain Power Consumption: ",
+//                        fL.getCurrent(CurrentUnit.AMPS)+fR.getCurrent(CurrentUnit.AMPS)+
+//                                bL.getCurrent(CurrentUnit.AMPS)+bR.getCurrent(CurrentUnit.AMPS));
 
             }
         );

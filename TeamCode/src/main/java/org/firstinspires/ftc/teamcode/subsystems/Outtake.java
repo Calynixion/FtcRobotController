@@ -22,11 +22,11 @@ public class Outtake {
     private final Telemetry telemetry;
 
     private ColorSensor sensor=null;
-    private double targetPower = 1;
+    private double targetPower = 0.7;
 
     public color nextBallColor = color.NULL;
 
-    public boolean manualPower = false;
+    public boolean manualPower = true;
 
 
     //speed will be in ticks/sec

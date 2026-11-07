@@ -1,13 +1,25 @@
 This is the controller mapping for the robot
 
-Gamepad 1(driver):
+Gamepad 1(driver and intake):
+    l bumper hold: intake in
+    r bumper hold: intake out
+    L joystick y axis: moves the robot forward/backward
+    L joystick x axis: turns the robot left/right
+    R joystick x axis: strafes left/right
+
+Gamepad 2(transfer and shooter):
+    l bumper hold: launcher
+    r bumper hold: transfer
+    r trigger hold: transfer reverse
+    x button (bottom): switch outtake manual power
+
+
+Deprecated:
     button A: stops intake
     l shoulder: intake on
     r shoulder: intake reverse
     button B: toggles outtake
-    L joystick y axis: moves the robot forward/backward
-    L joystick x axis: turns the robot left/right
-    R joystick x axis: strafes left/right
+
     L trigger: transfer on
     R trigger: transfer reverse
     button X: transfer off
