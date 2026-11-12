@@ -24,11 +24,7 @@ public class RedCloseFull extends robotOpMode {
     @Override
     public void init(){
         super.init();
-        paths = new AutoPaths();
-        robot.drivetrain.setPose(poseFactory.of(53.5158,9.2731,90));
-
     }
-    @Override
     public void start(){
         schedule (
            sequential (
