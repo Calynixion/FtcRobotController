@@ -9,6 +9,7 @@ import static com.pedropathing.ivy.groups.Groups.sequential;
 import com.pedropathing.api.Paths;
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
+import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -23,7 +24,7 @@ public class BlueClose extends robotOpMode {
     public void init(){
         super.init();
         paths = new AutoPaths();
-        robot.drivetrain.setPose(poseFactory.of( 88.9643,133.3427,270));
+        robot.drivetrain.setPose(poseFactory.of(86.1236, 133.2263, 270));
     }
 
 
@@ -32,20 +33,25 @@ public class BlueClose extends robotOpMode {
         schedule (
               sequential(
                  robotOpMode.shoot(),
-                 robot.drivetrain.followPath(paths.path1())
+                 robot.drivetrain.followPath(paths.toPark())
               )
         );
     }
 
-    private static class AutoPaths {
-        //paths from visualizer go here
-        public Path path1(){
-            return Paths.line(
-                poseFactory.of(88.9643,133.3427,270),
-                poseFactory.of(131.5285,48.6723,270)
-            ).constant(270);
-        };
+    public class AutoPaths {
+
+        private final PoseFactory poseFactory = PoseFactory.degrees();
+
+        private final Pose start = poseFactory.of(86.1236, 133.2263, 270);
+        private final Pose toPark = poseFactory.of(128.2504, 50.7732, 270);
+        private final Pose toParkControl1 = poseFactory.of(128.632, 103.4015, 0);
+
+        public Path toPark() {
+            return Paths.curve(start, toParkControl1, toPark).constant(toPark);
+        }
     }
+
+
 
 
 

@@ -5,29 +5,26 @@ import static com.pedropathing.ivy.commands.Commands.instant;
 import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.commands.Commands.waitUntil;
 import static com.pedropathing.ivy.groups.Groups.sequential;
-import static com.pedropathing.paths.interpolator.Interpolator.constant;
 
 import com.pedropathing.api.Paths;
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
+import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.robotCore.robotOpMode;
 
 @Autonomous(name = "Blue Far",group = "Blue Autos")
-
 public class BlueFar extends robotOpMode {
     private AutoPaths paths;
     private static final PoseFactory poseFactory = PoseFactory.degrees();
-
 
     @Override
     public void init(){
         super.init();
         paths = new AutoPaths();
-        robot.drivetrain.setPose(poseFactory.of(118.0477,8.1277,90));
-        //init paths object
+        robot.drivetrain.setPose(poseFactory.of(80.4682, 8.2308, 90));
     }
 
 
@@ -35,33 +32,29 @@ public class BlueFar extends robotOpMode {
     public void start(){
         schedule (
                 sequential(
-                    robot.drivetrain.followPath(paths.path1()),
-                    waitMs(12000),
-                    robotOpMode.shoot(),
-                    robot.drivetrain.followPath(paths.path2())
+                        waitMs(12000),
+                        robotOpMode.shoot(),
+                        robot.drivetrain.followPath(paths.toPark())
                 )
         );
     }
 
+    public class AutoPaths {
 
+        private final PoseFactory poseFactory = PoseFactory.degrees();
 
-    private static class AutoPaths {
-        //paths from visualizer go here
-        public Path path1(){
-            return Paths.line(
-                    poseFactory.of(118.0477,8.1277,90),
-                    poseFactory.of(85.0147,23.8976,90)
-            ).constant(90);
-        };
+        private final Pose blueFar = poseFactory.of(80.4682, 8.2308, 90);
+        private final Pose topark = poseFactory.of(126.8654, 20.4188, 90);
+        private final Pose toparkControl1 = poseFactory.of(78.0397, 42.0516, 0);
 
-        public Path path2(){
-            return Paths.line(
-                    poseFactory.of(118.0477, 8.1277, 90),
-                    poseFactory.of(130.7735, 23.172, 0)
-            ).constant(0);
+        public Path toPark() {
+            return Paths.curve(blueFar, toparkControl1, topark).constant(topark);
         }
     }
-
-
-
 }
+
+
+
+
+
+
